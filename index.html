@@ -858,13 +858,14 @@ function makeLineChart(ctx, colorVar, points=20){
 function pushChartVal(chart,val){ chart.data.datasets[0].data.push(val); chart.data.datasets[0].data.shift(); chart.update('none'); }
 
 /* ---- Monthly & Category Charts ---- */
-const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+//const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul'];
 let chartMonthly=null, chartCategory=null;
 
 function buildMonthlyData(){
   // aggregate monthly arrays from Industrial+Commercial, simulate rest
   const base = aggregateFlow();
-  const seasonal = [0.88,0.90,0.95,1.00,1.06,1.10,1.08,1.04,1.00,0.97,0.93,0.88];
+  const seasonal = [0.88,0.90,0.95,1.00,1.06,1.10,1.08];
   return MONTHS.map((m,i)=>{
     const fromCust = meters.filter(x=>x.monthly).reduce((s,x)=>s+(x.monthly[i]?.value||0),0);
     const fromRest = (meters.filter(x=>!x.monthly).length * base/meters.length * seasonal[i] * 720);
